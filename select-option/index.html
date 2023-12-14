@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Components</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <select-ui id="select">
+        <option-ui value="1">Hello</option-ui>
+        <option-ui value="2">World</option-ui>
+        <option-ui value="3">Again</option-ui>
+        <option-ui value="4">This</option-ui>
+    </select-ui>
+
+
+
+    <template id="select-template">
+        <style>
+            :host {
+                position: relative;
+                display: block;
+                border: 1px solid black;
+                width: 200px;
+                height: 30px;
+            }
+
+            :host([aria-expanded="false"])::after {
+                content: '\2B9F ';
+                font-size: 1.4rem;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                right: 0;
+                cursor: pointer;
+            }
+
+            :host([aria-expanded="true"])::after{
+                content: '\2B9D ';
+                font-size: 1.4rem;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                right: 0;
+                cursor: pointer;
+            }
+
+            [aria-hidden] {
+                height: 30px;
+                padding: 5px;
+            }
+
+            [data-dropdown] {
+                display: none;
+                position: absolute;
+                top: 116%;
+                right: 0;
+                width: 100%;
+                background: white;
+                box-shadow: 2px 2px 15px grey;
+            }
+        </style>
+        <div aria-hidden="true"></div>
+        <div data-dropdown>
+            <slot>select option</slot>
+        </div>
+    </template>
+
+    <template id="option-template">
+        <style>
+            :host(option-ui) {
+                display: block;
+                padding: 10px;
+                cursor: pointer;
+            }
+
+            :host(:hover) {
+                background-color: whitesmoke;
+            }
+        </style>
+    </template>
+
+    <script defer src="./main.js"></script>
+</body>
+
+</html>
